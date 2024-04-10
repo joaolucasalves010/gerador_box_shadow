@@ -35,6 +35,23 @@ class BoxShadowGenerator {
     this.mozRule.innerText = this.currentRule
   }
 
+  updateValue(type, value) {
+    if (type == 'horizontal') {
+      this.horizontalRef.value = value
+    }
+    else if (type == 'vertical') {
+      this.verticalRef.value = value
+    }
+    else if (type == 'blur') {
+      this.blurRef.value = value
+    }
+    else {
+      this.spreadRef.value = value
+    }
+    this.applyRule()
+    this.showRule()
+  }
+
 }
 
 // seleção de elementos
@@ -56,7 +73,29 @@ const mozRule = document.querySelector('#moz-rule span')
 
 const boxShadow = new BoxShadowGenerator(horizontal, horizontalRef, vertical, verticalRef, blur, blurRef, spread, spreadRef, previewBox, rule, webkitRule, mozRule)
 
-
-// eventos
 boxShadow.initialize() 
 
+// eventos
+horizontal.addEventListener('input', (e) => {
+  const value = e.target.value
+
+  boxShadow.updateValue('horizontal', value)
+})
+
+vertical.addEventListener('input', (e) => {
+  const value = e.target.value
+
+  boxShadow.updateValue('vertical', value)
+})
+
+blur.addEventListener('input', (e) => {
+  const value = e.target.value
+
+  boxShadow.updateValue('blur', value)
+})
+
+spread.addEventListener('input', (e) => {
+  const value = e.target.value
+
+  boxShadow.updateValue('spread', value)
+})
