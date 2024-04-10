@@ -1,5 +1,5 @@
 class BoxShadowGenerator {
-  constructor(horizontal, horizontalRef, vertical, verticalRef, blur, blurRef, spread, spreadRef, previewBox, rule, webkitRule, mozRule) {
+  constructor(horizontal, horizontalRef, vertical, verticalRef, blur, blurRef, spread, spreadRef, color, colorRef, opacity, opacityRef, inset, previewBox, rule, webkitRule, mozRule) {
     this.horizontal = horizontal
     this.horizontalRef = horizontalRef
     this.vertical = vertical
@@ -8,8 +8,13 @@ class BoxShadowGenerator {
     this.blurRef = blurRef
     this.spread = spread
     this.spreadRef = spreadRef
-    this.previewBox = previewBox
+    this.color = color
+    this.colorRef = colorRef
+    this.opacity = opacity
+    this.opacityRef = opacityRef
+    this.inset = inset
     this.rule = rule
+    this.previewBox = previewBox
     this.webkitRule = webkitRule
     this.mozRule = mozRule
   }
@@ -65,13 +70,19 @@ const blurRef = document.querySelector('#blur-value')
 const spread = document.querySelector('#spread')
 const spreadRef = document.querySelector('#spread-value')
 
+const color = document.querySelector('#color')
+const colorRef = document.querySelector('#color-value')
+const opacity = document.querySelector('#opacity')
+const opacityRef = document.querySelector('#opacity-value')
+const inset = document.querySelector('#inset')
+
 const previewBox = document.querySelector('#box')
 
 const rule = document.querySelector('#rule span')
 const webkitRule = document.querySelector('#webkit-rule span')
 const mozRule = document.querySelector('#moz-rule span')
 
-const boxShadow = new BoxShadowGenerator(horizontal, horizontalRef, vertical, verticalRef, blur, blurRef, spread, spreadRef, previewBox, rule, webkitRule, mozRule)
+const boxShadow = new BoxShadowGenerator(horizontal, horizontalRef, vertical, verticalRef, blur, blurRef, spread, spreadRef, color, colorRef, opacity, opacityRef, inset, previewBox, rule, webkitRule, mozRule)
 
 boxShadow.initialize() 
 
@@ -99,3 +110,5 @@ spread.addEventListener('input', (e) => {
 
   boxShadow.updateValue('spread', value)
 })
+
+console.log(boxShadow)
