@@ -157,3 +157,18 @@ inset.addEventListener('input', (e) => {
 
 // copiar elemento
 const rulesArea = document.querySelector('#rules-area')
+const copyInstructions = document.querySelector('#copy-instructions')
+
+rulesArea.addEventListener('click', (e) => {
+
+  const rules = rulesArea.innerText.replace(/^\S*\n/gm, "")
+
+  navigator.clipboard.writeText(rules).then(() => {
+    copyInstructions.innerText = "Copiado com sucesso"
+
+    setTimeout(() => {
+      copyInstructions.innerText = "Clique no quadro acima para copiar as regras"
+    }, 1000)
+
+  })
+})
