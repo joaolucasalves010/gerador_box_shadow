@@ -13,6 +13,7 @@ class BoxShadowGenerator {
     this.opacity = opacity
     this.opacityRef = opacityRef
     this.inset = inset
+    this.insetRef = inset
     this.rule = rule
     this.previewBox = previewBox
     this.webkitRule = webkitRule
@@ -25,6 +26,7 @@ class BoxShadowGenerator {
     this.spreadRef.value = this.spread.value
     this.blurRef.value = this.blur.value
     this.colorRef.value = this.color.value
+    this.opacityRef.value = this.opacity.value
 
 
     this.applyRule()
@@ -34,7 +36,7 @@ class BoxShadowGenerator {
   applyRule() {
     const rgbValue = this.hexToRgb(this.colorRef.value)
   
-    this.previewBox.style.boxShadow = `${this.horizontalRef.value}px ${this.verticalRef.value}px ${this.blurRef.value}px ${this.spreadRef.value}px rgba(${rgbValue})`
+    this.previewBox.style.boxShadow = `${this.insetRef ? "inset" : ""} ${this.horizontalRef.value}px ${this.verticalRef.value}px ${this.blurRef.value}px ${this.spreadRef.value}px rgba(${rgbValue}, ${this.opacityRef.value})`
     this.currentRule = this.previewBox.style.boxShadow;
   }
 
@@ -45,21 +47,32 @@ class BoxShadowGenerator {
   }
 
   updateValue(type, value) {
-    if (type == 'horizontal') {
-      this.horizontalRef.value = value
-    }
-    else if (type == 'vertical') {
-      this.verticalRef.value = value
-    }
-    else if (type == 'blur') {
-      this.blurRef.value = value
-    }
-    else if (type == 'spread'){
-      this.spreadRef.value = value
-    }
-    else if (type == 'color') {
-      this.colorRef.value = value
-    }
+
+    switch (type) {
+      case "horizontal":
+        this.horizontalRef.value = value;
+        break;
+      case "vertical":
+        this.verticalRef.value = value;
+        break;
+      case "spread":
+        this.spreadRef.value = value;
+        break;
+      case "blur":
+        this.blurRef.value = value;
+        break;
+      case "color":
+        this.colorRef.value = value;
+        break;
+      case "opacity":
+        this.opacityRef.value = value;
+        break;
+      case "inset":
+        this.insetRef = value;
+        break;
+  }
+
+
     this.applyRule()
     this.showRule()
   }
@@ -129,3 +142,18 @@ color.addEventListener('input', (e) => {
 
   boxShadow.updateValue('color', value)
 })
+
+opacity.addEventListener('input', (e) => {
+  const value = e.target.value
+
+  boxShadow.updateValue('opacity', value)
+})
+
+inset.addEventListener('input', (e) => {
+  const value = e.target.checked
+
+  boxShadow.updateValue('inset', value)
+})
+
+// copiar elemento
+const rulesArea = document.querySelector('#rules-area')
